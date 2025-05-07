@@ -1,2 +1,2 @@
-# mahjong
+# Mahjong
 Play Mahjong Online
