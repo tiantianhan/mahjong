@@ -6,7 +6,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField]
-    private string notation;
+    private string type;
 
     [SerializeField]
     private int number;
@@ -39,7 +39,7 @@ public class Tile : MonoBehaviour
 
     public string GetNotation()
     {
-        return notation;
+        return number <= 0 ? type : type + number; 
     }
 
     public bool Compare(Tile other)

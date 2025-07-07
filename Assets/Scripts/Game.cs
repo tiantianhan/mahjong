@@ -12,13 +12,20 @@ public class Game : MonoBehaviour
     private int totalPlayers = 0;
 
     [SerializeField]
-    private List<Player> playerOrder;
+    private List<Player> playersInOrder;
+
+    [SerializeField]
+    private Deck deck;
+
+    [SerializeField]
+
+    public int handCount = 13;
 
     void Awake()
     {
-        totalPlayers = playerOrder.Count;
+        totalPlayers = playersInOrder.Count;
         currentPlayerIndex = 0;
-        currentPlayer = playerOrder[currentPlayerIndex];
+        currentPlayer = playersInOrder[currentPlayerIndex];
         Debug.Log("Current player index " + currentPlayerIndex);
     }
 
@@ -32,11 +39,22 @@ public class Game : MonoBehaviour
     {
     }
 
+    public void DrawHands()
+    {
+        for (int i = 0; i < handCount; i++)
+        {
+            foreach (Player player in playersInOrder)
+            {
+                player.Draw(deck);
+            }
+        }
+    }
+
     public void NextTurn()
     {
         currentPlayerIndex += 1;
         currentPlayerIndex = currentPlayerIndex % totalPlayers;
-        currentPlayer = playerOrder[currentPlayerIndex];
+        currentPlayer = playersInOrder[currentPlayerIndex];
         Debug.Log("Current player index " + currentPlayerIndex);
     }
 

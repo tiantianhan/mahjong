@@ -20,12 +20,12 @@ public class Hand : MonoBehaviour
 
     }
 
-    void Add(Tile tile)
+    public void Add(Tile tile)
     {
         tiles.Add(tile);
     }
 
-    void Discard(Tile tile)
+    public void Discard(Tile tile)
     {
         tiles.Remove(tile);
     }
