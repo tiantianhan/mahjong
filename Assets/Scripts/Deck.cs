@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 /**
@@ -8,14 +9,15 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
     [SerializeField]
+    private Tile tilePrefab;
+
+    [SerializeField]
     private List<Tile> tiles;
 
     void Awake()
     {
-        foreach (Transform child in transform)
-        {
-            tiles.Add(child.gameObject.GetComponent<Tile>());
-        }
+        LoadStartingDeck();
+
     }
 
     // Start is called before the first frame update
@@ -57,5 +59,26 @@ public class Deck : MonoBehaviour
         Tile tile = tiles[tiles.Count - 1];
         tiles.RemoveAt(tiles.Count - 1);
         return tile;
+    }
+
+    void LoadStartingDeck()
+    {
+        Tile.Attributes[] attrs = LoadAttributeListFromResources();
+
+        foreach (Tile.Attributes attributes in attrs)
+        {
+            for (int i = 0; i < attributes.count; i++)
+            {
+                tiles.Add(Tile.SpawnWithAttributes(tilePrefab, attributes, this.transform));
+            }
+        }
+    }
+
+    Tile.Attributes[] LoadAttributeListFromResources()
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>("tile_attributes_list");
+        string jsonString = textAsset.ToString();
+        Tile.AttributesFile attrFile = JsonUtility.FromJson<Tile.AttributesFile>(jsonString);
+        return attrFile.attributes;
     }
 }

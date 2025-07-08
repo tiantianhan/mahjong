@@ -1,0 +1,174 @@
+{
+    "attributes": [
+        {
+            "type": "N",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "S",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "E",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "W",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "B",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "RC",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "F",
+            "number": 0,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 1,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 2,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 3,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 4,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 5,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 6,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 7,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 8,
+            "count": 4
+        },
+        {
+            "type": "ST",
+            "number": 9,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 1,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 2,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 3,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 4,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 5,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 6,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 7,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 8,
+            "count": 4
+        },
+        {
+            "type": "D",
+            "number": 9,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 1,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 2,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 3,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 4,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 5,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 6,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 7,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 8,
+            "count": 4
+        },
+        {
+            "type": "WN",
+            "number": 9,
+            "count": 4
+        }
+    ]
+}

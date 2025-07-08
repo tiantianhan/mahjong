@@ -1,16 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField]
-    private string type;
-
-    [SerializeField]
-    private int number;
-
     public enum DisplayState
     {
         Hidden,
@@ -19,6 +14,40 @@ public class Tile : MonoBehaviour
     }
 
     private DisplayState displayState;
+
+
+    [Serializable]
+    public class AttributesFile
+    {
+        public Attributes[] attributes;
+    }
+
+    [Serializable]
+    public class Attributes
+    {
+        public string type;
+        public int number;
+        public int count;
+
+        public Attributes()
+        {
+        }
+
+        public Attributes(Attributes attributes)
+        {
+            this.type = attributes.type;
+            this.number = attributes.number;
+            this.count = attributes.count;
+        }
+
+        public Attributes Clone()
+        {
+            return new Attributes(this);
+        }
+    }
+
+    [SerializeField]
+    private Attributes attributes;
 
     void Awake()
     {
@@ -37,9 +66,27 @@ public class Tile : MonoBehaviour
 
     }
 
+    public static Tile SpawnWithAttributes(Tile prefab, Attributes attributes, Transform container)
+    {
+        GameObject tileObject = Instantiate(prefab.gameObject);
+        tileObject.transform.parent = container;
+
+        Tile tile = tileObject.GetComponent<Tile>();
+        tile.SetAttributes(attributes);
+
+        tileObject.name = "Tile " + tile.GetNotation();
+
+        return tile;
+    }
+
+    public void SetAttributes(Attributes attributes)
+    {
+        this.attributes = attributes.Clone();
+    }
+
     public string GetNotation()
     {
-        return number <= 0 ? type : type + number; 
+        return attributes.number <= 0 ? attributes.type : attributes.type + attributes.number;
     }
 
     public bool Compare(Tile other)
