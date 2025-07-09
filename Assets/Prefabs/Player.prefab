@@ -55,20 +55,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 3269248113101738085}
     m_Modifications:
     - target: {fileID: 454415381099595893, guid: fca973bb09b308f45adaf3d7e1b73749, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 454415381099595893, guid: fca973bb09b308f45adaf3d7e1b73749, type: 3}
       propertyPath: m_Name
       value: Hand
       objectReference: {fileID: 0}
     - target: {fileID: 3325843057510302793, guid: fca973bb09b308f45adaf3d7e1b73749, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8754114
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 3325843057510302793, guid: fca973bb09b308f45adaf3d7e1b73749, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9750687
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3325843057510302793, guid: fca973bb09b308f45adaf3d7e1b73749, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.052131016
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3325843057510302793, guid: fca973bb09b308f45adaf3d7e1b73749, type: 3}
       propertyPath: m_LocalRotation.w

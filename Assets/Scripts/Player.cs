@@ -22,5 +22,7 @@ public class Player : MonoBehaviour
     public void Draw(Deck deck)
     {
         hand.Add(deck.DrawFromTop());
+        hand.Order();
+        hand.Layout();
     }
 }

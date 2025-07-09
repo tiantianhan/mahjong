@@ -1,174 +1,242 @@
 {
     "attributes": [
         {
-            "type": "N",
-            "number": 0,
-            "count": 4
-        },
-        {
-            "type": "S",
-            "number": 0,
-            "count": 4
-        },
-        {
             "type": "E",
             "number": 0,
-            "count": 4
+            "count": 4,
+            "asset": "East",
+            "order": 1
         },
         {
             "type": "W",
             "number": 0,
-            "count": 4
+            "count": 4,
+            "asset": "West",
+            "order": 2
         },
         {
-            "type": "B",
+            "type": "S",
             "number": 0,
-            "count": 4
+            "count": 4,
+            "asset": "South",
+            "order": 3
+        },
+        {
+            "type": "N",
+            "number": 0,
+            "count": 4,
+            "asset": "North",
+            "order": 4
         },
         {
             "type": "RC",
             "number": 0,
-            "count": 4
+            "count": 4,
+            "asset": "Red",
+            "order": 5
+        },
+        {
+            "type": "B",
+            "number": 0,
+            "count": 4,
+            "asset": "White",
+            "order": 6
         },
         {
             "type": "F",
             "number": 0,
-            "count": 4
+            "count": 4,
+            "asset": "Green",
+            "order": 7
         },
         {
             "type": "ST",
             "number": 1,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo1",
+            "order": 8
         },
         {
             "type": "ST",
             "number": 2,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo2",
+            "order": 9
         },
         {
             "type": "ST",
             "number": 3,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo3",
+            "order": 10
         },
         {
             "type": "ST",
             "number": 4,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo4",
+            "order": 11
         },
         {
             "type": "ST",
             "number": 5,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo5",
+            "order": 12
         },
         {
             "type": "ST",
             "number": 6,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo6",
+            "order": 13
         },
         {
             "type": "ST",
             "number": 7,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo7",
+            "order": 14
         },
         {
             "type": "ST",
             "number": 8,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo8",
+            "order": 15
         },
         {
             "type": "ST",
             "number": 9,
-            "count": 4
+            "count": 4,
+            "asset": "Bamboo9",
+            "order": 16
         },
         {
             "type": "D",
             "number": 1,
-            "count": 4
+            "count": 4,
+            "asset": "Circles1",
+            "order": 17
         },
         {
             "type": "D",
             "number": 2,
-            "count": 4
+            "count": 4,
+            "asset": "Circles2",
+            "order": 18
         },
         {
             "type": "D",
             "number": 3,
-            "count": 4
+            "count": 4,
+            "asset": "Circles3",
+            "order": 19
         },
         {
             "type": "D",
             "number": 4,
-            "count": 4
+            "count": 4,
+            "asset": "Circles4",
+            "order": 20
         },
         {
             "type": "D",
             "number": 5,
-            "count": 4
+            "count": 4,
+            "asset": "Circles5",
+            "order": 21
         },
         {
             "type": "D",
             "number": 6,
-            "count": 4
+            "count": 4,
+            "asset": "Circles6",
+            "order": 22
         },
         {
             "type": "D",
             "number": 7,
-            "count": 4
+            "count": 4,
+            "asset": "Circles7",
+            "order": 23
         },
         {
             "type": "D",
             "number": 8,
-            "count": 4
+            "count": 4,
+            "asset": "Circles8",
+            "order": 24
         },
         {
             "type": "D",
             "number": 9,
-            "count": 4
+            "count": 4,
+            "asset": "Circles9",
+            "order": 25
         },
         {
             "type": "WN",
             "number": 1,
-            "count": 4
+            "count": 4,
+            "asset": "Characters1",
+            "order": 26
         },
         {
             "type": "WN",
             "number": 2,
-            "count": 4
+            "count": 4,
+            "asset": "Characters2",
+            "order": 27
         },
         {
             "type": "WN",
             "number": 3,
-            "count": 4
+            "count": 4,
+            "asset": "Characters3",
+            "order": 28
         },
         {
             "type": "WN",
             "number": 4,
-            "count": 4
+            "count": 4,
+            "asset": "Characters4",
+            "order": 29
         },
         {
             "type": "WN",
             "number": 5,
-            "count": 4
+            "count": 4,
+            "asset": "Characters5",
+            "order": 30
         },
         {
             "type": "WN",
             "number": 6,
-            "count": 4
+            "count": 4,
+            "asset": "Characters6",
+            "order": 31
         },
         {
             "type": "WN",
             "number": 7,
-            "count": 4
+            "count": 4,
+            "asset": "Characters7",
+            "order": 32
         },
         {
             "type": "WN",
             "number": 8,
-            "count": 4
+            "count": 4,
+            "asset": "Characters8",
+            "order": 33
         },
         {
             "type": "WN",
             "number": 9,
-            "count": 4
+            "count": 4,
+            "asset": "Characters9",
+            "order": 34
         }
     ]
 }

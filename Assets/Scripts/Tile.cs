@@ -29,6 +29,10 @@ public class Tile : MonoBehaviour
         public int number;
         public int count;
 
+        public string asset;
+
+        public int order;
+
         public Attributes()
         {
         }
@@ -38,6 +42,8 @@ public class Tile : MonoBehaviour
             this.type = attributes.type;
             this.number = attributes.number;
             this.count = attributes.count;
+            this.asset = attributes.asset;
+            this.order = attributes.order;
         }
 
         public Attributes Clone()
@@ -48,6 +54,10 @@ public class Tile : MonoBehaviour
 
     [SerializeField]
     private Attributes attributes;
+
+
+    [SerializeField]
+    private SpriteRenderer tileRenderer;
 
     void Awake()
     {
@@ -73,6 +83,7 @@ public class Tile : MonoBehaviour
 
         Tile tile = tileObject.GetComponent<Tile>();
         tile.SetAttributes(attributes);
+        tile.LoadSprite();
 
         tileObject.name = "Tile " + tile.GetNotation();
 
@@ -94,6 +105,11 @@ public class Tile : MonoBehaviour
         return other.GetNotation() == GetNotation();
     }
 
+    public int GetOrder()
+    {
+        return attributes.order;
+    }
+
     public DisplayState GetDisplayState()
     {
         return displayState;
@@ -112,5 +128,13 @@ public class Tile : MonoBehaviour
     public static bool IsRun(Tile[] tiles)
     {
         throw new NotImplementedException();
+    }
+
+    void LoadSprite()
+    {
+        if (attributes.asset != null)
+        {
+            tileRenderer.sprite = Resources.Load<Sprite>("pixel_art_tile_sprites/" + attributes.asset);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
@@ -29,10 +30,20 @@ public class Hand : MonoBehaviour
     {
         tiles.Remove(tile);
     }
-    
-    void Order()
+
+    public void Order()
     {
-        throw new NotImplementedException();
+        tiles = tiles.OrderBy(t => t.GetOrder()).ToList();
     }
 
+    public void Layout()
+    {
+        for(int i = 0; i < tiles.Count; i++)
+        {
+            tiles[i].gameObject.transform.parent = this.transform;
+            tiles[i].gameObject.transform.localRotation = Quaternion.identity;
+            // TODO: Decouple layout implementation from model of game and game state 
+            tiles[i].gameObject.transform.localPosition =  Vector3.right * i * 7/13f;  // Board size / Number of tiles
+        }
+    }
 }
