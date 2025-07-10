@@ -18,6 +18,9 @@ public class Game : MonoBehaviour
     private Deck deck;
 
     [SerializeField]
+    private Discards discards;
+
+    [SerializeField]
 
     public int handCount = 13;
 
@@ -58,4 +61,13 @@ public class Game : MonoBehaviour
         Debug.Log("Current player index " + currentPlayerIndex);
     }
 
+    public void Draw()
+    {
+        currentPlayer.Draw(deck);
+    }
+
+    public void Discard()
+    {
+        currentPlayer.Discard(discards);
+    }
 }

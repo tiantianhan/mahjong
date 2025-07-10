@@ -19,10 +19,31 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Draw(Deck deck)
+    public Tile Draw(Deck deck)
     {
-        hand.Add(deck.DrawFromTop());
+        Tile drawnTile = deck.DrawFromTop();
+        hand.Add(drawnTile);
         hand.Order();
         hand.Layout();
+
+        return drawnTile;
+    }
+
+    public void DrawAndSelect(Deck deck)
+    {
+        Tile drawnTile = Draw(deck);
+        hand.SetSelectedTile(drawnTile);
+    }
+
+    public void Discard(Discards discardPile)
+    {
+        Tile selectedTile = hand.GetSelectedTile();
+        Debug.Log("Discarding selected " + selectedTile.name);
+        if (selectedTile)
+        {
+            hand.Discard(selectedTile);
+            discardPile.AddToDiscards(selectedTile);
+            hand.Layout();
+        }
     }
 }

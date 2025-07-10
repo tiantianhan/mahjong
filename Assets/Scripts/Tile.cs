@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerDownHandler
 {
     public enum DisplayState
     {
@@ -15,6 +16,7 @@ public class Tile : MonoBehaviour
 
     private DisplayState displayState;
 
+    private bool selected;
 
     [Serializable]
     public class AttributesFile
@@ -58,6 +60,13 @@ public class Tile : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer tileRenderer;
+
+    public interface ITileClickedHandler
+    {
+        public void OnTileClicked(Tile tile);
+    }
+
+    public ITileClickedHandler TileSelectedHandler { get; set; }
 
     void Awake()
     {
@@ -128,6 +137,33 @@ public class Tile : MonoBehaviour
     public static bool IsRun(Tile[] tiles)
     {
         throw new NotImplementedException();
+    }
+
+    public void OnPointerDown(PointerEventData pointerEventData)
+    {
+        Debug.Log(name + " Pointer Down");
+        TileSelectedHandler.OnTileClicked(this);
+    }
+
+    public void ToggleSelected()
+    {
+        SetSelected(!selected);
+    }
+
+    public void SetSelected(bool selected)
+    {
+        this.selected = selected;
+        float offset = 0.1f;
+        if (selected)
+            transform.localPosition += new Vector3(0, offset, 0);
+        else
+            transform.localPosition += new Vector3(0, -offset, 0);
+
+    }
+
+    public bool IsSelected()
+    {
+        return selected;
     }
 
     void LoadSprite()
