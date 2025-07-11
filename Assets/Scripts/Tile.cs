@@ -73,22 +73,9 @@ public class Tile : MonoBehaviour, IPointerDownHandler
         displayState = DisplayState.Hidden;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public static Tile SpawnWithAttributes(Tile prefab, Attributes attributes, Transform container)
     {
         GameObject tileObject = Instantiate(prefab.gameObject);
-        tileObject.transform.parent = container;
 
         Tile tile = tileObject.GetComponent<Tile>();
         tile.SetAttributes(attributes);
@@ -96,7 +83,16 @@ public class Tile : MonoBehaviour, IPointerDownHandler
 
         tileObject.name = "Tile " + tile.GetNotation();
 
+        tile.MoveToContainer(container);
+
         return tile;
+    }
+
+    public void MoveToContainer(Transform container)
+    {
+        gameObject.transform.parent = container;
+        gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.localRotation = Quaternion.identity;
     }
 
     public void SetAttributes(Attributes attributes)

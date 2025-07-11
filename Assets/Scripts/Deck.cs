@@ -81,4 +81,13 @@ public class Deck : MonoBehaviour
         Tile.AttributesFile attrFile = JsonUtility.FromJson<Tile.AttributesFile>(jsonString);
         return attrFile.attributes;
     }
+
+    public void ReturnToDeck(List<Tile> tiles)
+    {
+        foreach (Tile tile in tiles)
+        {
+            tile.MoveToContainer(this.transform);
+            this.tiles.Add(tile);
+        }
+    }
 }

@@ -11,13 +11,12 @@ public class Discards : MonoBehaviour
     public void AddToDiscards(Tile tile)
     {
         discards.Add(tile);
-
-        tile.gameObject.transform.parent = this.transform;
-        tile.gameObject.transform.localPosition = Vector3.zero;
+        tile.MoveToContainer(this.transform);
     }
 
-    public List<Tile> GetDiscards()
+    public void ReturnToDeck(Deck deck)
     {
-        return discards;
+        deck.ReturnToDeck(discards);
+        discards = new List<Tile>();
     }
 }

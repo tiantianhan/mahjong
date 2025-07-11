@@ -7,18 +7,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Hand hand;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public Tile Draw(Deck deck)
     {
         Tile drawnTile = deck.DrawFromTop();
@@ -45,5 +33,10 @@ public class Player : MonoBehaviour
             discardPile.AddToDiscards(selectedTile);
             hand.Layout();
         }
+    }
+
+    public void ReturnHandToDeck(Deck deck)
+    {
+        hand.ReturnToDeck(deck);
     }
 }

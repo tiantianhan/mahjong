@@ -27,19 +27,8 @@ public class Game : MonoBehaviour
     void Awake()
     {
         totalPlayers = playersInOrder.Count;
-        currentPlayerIndex = 0;
-        currentPlayer = playersInOrder[currentPlayerIndex];
+        ResetCurrentPlayer();
         Debug.Log("Current player index " + currentPlayerIndex);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void DrawHands()
@@ -63,11 +52,28 @@ public class Game : MonoBehaviour
 
     public void Draw()
     {
-        currentPlayer.Draw(deck);
+        currentPlayer.DrawAndSelect(deck);
     }
 
     public void Discard()
     {
         currentPlayer.Discard(discards);
+    }
+
+    public void Restart()
+    {
+        ResetCurrentPlayer();
+        discards.ReturnToDeck(deck);
+
+        foreach (Player player in playersInOrder)
+        {
+            player.ReturnHandToDeck(deck);
+        }
+    }
+
+    void ResetCurrentPlayer()
+    {
+        currentPlayerIndex = 0;
+        currentPlayer = playersInOrder[currentPlayerIndex];
     }
 }

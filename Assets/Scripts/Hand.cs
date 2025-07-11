@@ -13,19 +13,7 @@ public class Hand : MonoBehaviour, Tile.ITileClickedHandler
     private Tile selectedTile;
 
     [SerializeField]
-    private UnityEvent<bool, Tile> OnTileSelected;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    private UnityEvent<bool, Tile> OnSelectedTileUpdated;
 
     public void Add(Tile tile)
     {
@@ -35,7 +23,7 @@ public class Hand : MonoBehaviour, Tile.ITileClickedHandler
     public void Discard(Tile tile)
     {
         if (tile == selectedTile)
-            SetSelectedTile(null);
+            UpdateSelectedTile(null);
         tiles.Remove(tile);
     }
 
@@ -61,7 +49,7 @@ public class Hand : MonoBehaviour, Tile.ITileClickedHandler
         tile.ToggleSelected();
 
         // Track selected tile
-        selectedTile = tile.IsSelected() ? tile : null;
+        UpdateSelectedTile(tile.IsSelected() ? tile : null);
 
         // Select only one tile at a time
         if (tile.IsSelected())
@@ -76,13 +64,28 @@ public class Hand : MonoBehaviour, Tile.ITileClickedHandler
 
     public void SetSelectedTile(Tile tile)
     {
-        if(tile)
+        if (tile)
             tile.SetSelected(true);
+        UpdateSelectedTile(tile);
+    }
+
+    void UpdateSelectedTile(Tile tile)
+    {
         selectedTile = tile;
+        OnSelectedTileUpdated.Invoke(tile ? true : false, tile);
     }
 
     public Tile GetSelectedTile()
     {
         return selectedTile;
+    }
+
+    public void ReturnToDeck(Deck deck)
+    {
+        if (selectedTile)
+            SetSelectedTile(null);
+
+        deck.ReturnToDeck(tiles);
+        tiles = new List<Tile>();
     }
 }
