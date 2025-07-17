@@ -14,6 +14,9 @@ public class Deck : MonoBehaviour
     [SerializeField]
     private List<Tile> tiles;
 
+    // [SerializeField]
+    // private TileAttributesList tileAttributesList;
+
     void Awake()
     {
         LoadStartingDeck();
@@ -63,9 +66,9 @@ public class Deck : MonoBehaviour
 
     void LoadStartingDeck()
     {
-        Tile.Attributes[] attrs = LoadAttributeListFromResources();
+        TileAttributes[] attrs = LoadAttributeListFromResources();
 
-        foreach (Tile.Attributes attributes in attrs)
+        foreach (TileAttributes attributes in attrs)
         {
             for (int i = 0; i < attributes.count; i++)
             {
@@ -74,12 +77,10 @@ public class Deck : MonoBehaviour
         }
     }
 
-    Tile.Attributes[] LoadAttributeListFromResources()
+    TileAttributes[] LoadAttributeListFromResources()
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("tile_attributes_list");
-        string jsonString = textAsset.ToString();
-        Tile.AttributesFile attrFile = JsonUtility.FromJson<Tile.AttributesFile>(jsonString);
-        return attrFile.attributes;
+        TileAttributes[] tileAttributes = Resources.LoadAll<TileAttributes>("TileAttributes");
+        return tileAttributes;
     }
 
     public void ReturnToDeck(List<Tile> tiles)

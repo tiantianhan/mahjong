@@ -18,44 +18,8 @@ public class Tile : MonoBehaviour, IPointerDownHandler
 
     private bool selected;
 
-    [Serializable]
-    public class AttributesFile
-    {
-        public Attributes[] attributes;
-    }
-
-    [Serializable]
-    public class Attributes
-    {
-        public string type;
-        public int number;
-        public int count;
-
-        public string asset;
-
-        public int order;
-
-        public Attributes()
-        {
-        }
-
-        public Attributes(Attributes attributes)
-        {
-            this.type = attributes.type;
-            this.number = attributes.number;
-            this.count = attributes.count;
-            this.asset = attributes.asset;
-            this.order = attributes.order;
-        }
-
-        public Attributes Clone()
-        {
-            return new Attributes(this);
-        }
-    }
-
     [SerializeField]
-    private Attributes attributes;
+    private TileAttributes attributes;
 
 
     [SerializeField]
@@ -73,7 +37,7 @@ public class Tile : MonoBehaviour, IPointerDownHandler
         displayState = DisplayState.Hidden;
     }
 
-    public static Tile SpawnWithAttributes(Tile prefab, Attributes attributes, Transform container)
+    public static Tile SpawnWithAttributes(Tile prefab, TileAttributes attributes, Transform container)
     {
         GameObject tileObject = Instantiate(prefab.gameObject);
 
@@ -95,14 +59,14 @@ public class Tile : MonoBehaviour, IPointerDownHandler
         gameObject.transform.localRotation = Quaternion.identity;
     }
 
-    public void SetAttributes(Attributes attributes)
+    public void SetAttributes(TileAttributes attributes)
     {
-        this.attributes = attributes.Clone();
+        this.attributes = attributes;
     }
 
     public string GetNotation()
     {
-        return attributes.number <= 0 ? attributes.type : attributes.type + attributes.number;
+        return attributes.GetNotation();
     }
 
     public bool Compare(Tile other)
