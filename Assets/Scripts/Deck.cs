@@ -14,24 +14,9 @@ public class Deck : MonoBehaviour
     [SerializeField]
     private List<Tile> tiles;
 
-    // [SerializeField]
-    // private TileAttributesList tileAttributesList;
-
     void Awake()
     {
         LoadStartingDeck();
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
