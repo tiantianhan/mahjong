@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using Unity.Properties;
 using UnityEngine;
 
 /**
 * Deck of tiles not yet distributed to players
 */
-public class Deck : MonoBehaviour
+public class Deck : NetworkBehaviour
 {
     [SerializeField]
     private Tile tilePrefab;
@@ -17,13 +19,12 @@ public class Deck : MonoBehaviour
     void Awake()
     {
         LoadStartingDeck();
-
     }
 
     public void Shuffle()
     {
-        // Fisher-Yates Shuffle. For all but last 
-        // item, swap item in place with a random item in the 
+        // Fisher-Yates Shuffle. For all but last
+        // item, swap item in place with a random item in the
         // remainder of the list
         // Results in equal probability for each permutation of the list
         for (int i = 0; i < tiles.Count - 1; i++)

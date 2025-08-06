@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class Game : NetworkBehaviour
 {
     [SerializeField]
     private Player currentPlayer;
 
     private int currentPlayerIndex = 0;
-    private int totalPlayers = 0;
+    private int totalPlayers = 4;
 
     [SerializeField]
     private List<Player> playersInOrder;
@@ -21,12 +22,35 @@ public class Game : MonoBehaviour
     private Discards discards;
 
     [SerializeField]
-
     public int handCount = 13;
+
+    //TODO: Testing spawning Game game object on server
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        Debug.Log("Game OnStartServer");
+    }
 
     void Awake()
     {
-        totalPlayers = playersInOrder.Count;
+        Player.OnPlayerJoined += OnPlayerJoined;
+    }
+
+    void OnPlayerJoined(Player player)
+    {
+        playersInOrder.Add(player);
+        player.gameObject.name = "Player " + playersInOrder.Count;
+        Debug.Log("Add " + player.gameObject.name + " to player list");
+
+        if (playersInOrder.Count == totalPlayers)
+        {
+            Player.OnPlayerJoined -= OnPlayerJoined;
+            OnAllPlayersJoined();
+        }
+    }
+
+    void OnAllPlayersJoined()
+    {
         ResetCurrentPlayer();
         Debug.Log("Current player index " + currentPlayerIndex);
     }
