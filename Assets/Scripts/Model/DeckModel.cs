@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 namespace Model
 {
     public class Deck
     {
-        List<Tile> tiles;
+        private List<Tile> tiles = new();
 
         public void Shuffle()
         {
@@ -27,6 +28,17 @@ namespace Model
             Tile tile = tiles[0];
             tiles.RemoveAt(0);
             return tile;
+        }
+
+        public void Add(List<Tile> tiles)
+        {
+            this.tiles.AddRange(tiles);
+            Debug.Log("AddRange tiles" + string.Join(", ", this.tiles));
+        }
+
+        public List<Tile> GetTiles()
+        {
+            return new List<Tile>(tiles);
         }
     }
 }

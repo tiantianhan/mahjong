@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Model
 {
@@ -22,10 +24,29 @@ namespace Model
 
         private List<Player> players = new();
 
+        public class Save
+        {
+            public List<Tile> drawPile;
+        }
+
         public Game(int numPlayers, int numTilesPerHand)
         {
             this.numPlayers = numPlayers;
             this.numTilesPerHand = numTilesPerHand;
+        }
+
+        public Save GetSave()
+        {
+            Debug.Log("GetSave");
+            Save newSave = new();
+            newSave.drawPile = drawPile.GetTiles();
+            return newSave;
+        }
+
+        public void LoadTiles(List<Tile> tiles)
+        {
+            Debug.Log("LoadTiles");
+            drawPile.Add(tiles);
         }
 
         public bool isGameFull()
@@ -41,6 +62,12 @@ namespace Model
         public void AddPlayer(Player player)
         {
             players.Add(player);
+        }
+
+        public void Start()
+        {
+            currentPlayer = players[0];
+            state = State.Started;
         }
 
         public void Shuffle()
