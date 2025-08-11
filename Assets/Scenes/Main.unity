@@ -2476,8 +2476,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 868078286}
-        m_TargetAssemblyTypeName: Deck, Assembly-CSharp
+      - m_Target: {fileID: 2138721721}
+        m_TargetAssemblyTypeName: ModelAPI, Assembly-CSharp
         m_MethodName: Shuffle
         m_Mode: 1
         m_Arguments:

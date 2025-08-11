@@ -33,7 +33,6 @@ namespace Model
         public void Add(List<Tile> tiles)
         {
             this.tiles.AddRange(tiles);
-            Debug.Log("AddRange tiles" + string.Join(", ", this.tiles));
         }
 
         public List<Tile> GetTiles()

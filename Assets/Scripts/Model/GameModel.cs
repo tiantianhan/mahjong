@@ -37,7 +37,6 @@ namespace Model
 
         public Save GetSave()
         {
-            Debug.Log("GetSave");
             Save newSave = new();
             newSave.drawPile = drawPile.GetTiles();
             return newSave;
@@ -45,7 +44,7 @@ namespace Model
 
         public void LoadTiles(List<Tile> tiles)
         {
-            Debug.Log("LoadTiles");
+            Debug.Log("Load Model Tiles");
             drawPile.Add(tiles);
         }
 
