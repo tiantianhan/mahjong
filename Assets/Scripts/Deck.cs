@@ -4,6 +4,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Unity.Properties;
 using UnityEngine;
+using TileModel = Model.Tile;
 
 /**
 * Deck of tiles not yet distributed to players
@@ -16,23 +17,23 @@ public class Deck : NetworkBehaviour
     [SerializeField]
     private List<Tile> tiles;
 
-    void Awake()
+    [SerializeField]
+    private TileSetLookup tileDeckLookup;
+
+    void Start()
     {
-        LoadStartingDeck();
+        // We get tiles in Start because tile set is first loaded in Awake
+        GetAllTiles();
     }
 
-    public void Shuffle()
+    void GetAllTiles()
     {
-        // Fisher-Yates Shuffle. For all but last
-        // item, swap item in place with a random item in the
-        // remainder of the list
-        // Results in equal probability for each permutation of the list
-        for (int i = 0; i < tiles.Count - 1; i++)
+        tiles = tileDeckLookup.GetAllTiles();
+
+        // Move tile view physically
+        foreach (Tile tile in tiles)
         {
-            int swap_index = Random.Range(i, tiles.Count - 1);
-            Tile temp = tiles[i];
-            tiles[i] = tiles[swap_index];
-            tiles[swap_index] = temp;
+            tile.gameObject.transform.parent = this.transform;
         }
     }
 
@@ -48,25 +49,6 @@ public class Deck : NetworkBehaviour
         Tile tile = tiles[tiles.Count - 1];
         tiles.RemoveAt(tiles.Count - 1);
         return tile;
-    }
-
-    void LoadStartingDeck()
-    {
-        TileAttributes[] attrs = LoadAttributeListFromResources();
-
-        foreach (TileAttributes attributes in attrs)
-        {
-            for (int i = 0; i < attributes.count; i++)
-            {
-                tiles.Add(Tile.SpawnWithAttributes(tilePrefab, attributes, this.transform));
-            }
-        }
-    }
-
-    TileAttributes[] LoadAttributeListFromResources()
-    {
-        TileAttributes[] tileAttributes = Resources.LoadAll<TileAttributes>("TileAttributes");
-        return tileAttributes;
     }
 
     public void ReturnToDeck(List<Tile> tiles)

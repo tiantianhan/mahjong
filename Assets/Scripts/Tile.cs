@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TileModel = Model.Tile;
 
 public class Tile : MonoBehaviour, IPointerDownHandler
 {
@@ -19,8 +20,7 @@ public class Tile : MonoBehaviour, IPointerDownHandler
     private bool selected;
 
     [SerializeField]
-    private TileAttributes attributes;
-
+    private TileModel model;
 
     [SerializeField]
     private SpriteRenderer tileRenderer;
@@ -37,16 +37,14 @@ public class Tile : MonoBehaviour, IPointerDownHandler
         displayState = DisplayState.Hidden;
     }
 
-    public static Tile SpawnWithAttributes(Tile prefab, TileAttributes attributes, Transform container)
+    public static Tile SpawnWithModel(Tile prefab, TileModel tileModel, Transform container)
     {
         GameObject tileObject = Instantiate(prefab.gameObject);
 
         Tile tile = tileObject.GetComponent<Tile>();
-        tile.SetAttributes(attributes);
+        tile.SetModel(tileModel);
         tile.LoadSprite();
-
-        tileObject.name = "Tile " + tile.GetNotation();
-
+        tileObject.name = "Tile " + tile.GetUniqueNotation();
         tile.MoveToContainer(container);
 
         return tile;
@@ -59,14 +57,19 @@ public class Tile : MonoBehaviour, IPointerDownHandler
         gameObject.transform.localRotation = Quaternion.identity;
     }
 
-    public void SetAttributes(TileAttributes attributes)
+    public void SetModel(TileModel model)
     {
-        this.attributes = attributes;
+        this.model = model;
     }
 
     public string GetNotation()
     {
-        return attributes.GetNotation();
+        return model.GetNotation();
+    }
+
+    public string GetUniqueNotation()
+    {
+        return model.GetUniqueNotation();
     }
 
     public bool Compare(Tile other)
@@ -76,7 +79,7 @@ public class Tile : MonoBehaviour, IPointerDownHandler
 
     public int GetOrder()
     {
-        return attributes.order;
+        return model.order;
     }
 
     public DisplayState GetDisplayState()
@@ -118,7 +121,6 @@ public class Tile : MonoBehaviour, IPointerDownHandler
             transform.localPosition += new Vector3(0, offset, 0);
         else
             transform.localPosition += new Vector3(0, -offset, 0);
-
     }
 
     public bool IsSelected()
@@ -128,9 +130,6 @@ public class Tile : MonoBehaviour, IPointerDownHandler
 
     void LoadSprite()
     {
-        if (attributes.asset != null)
-        {
-            tileRenderer.sprite = Resources.Load<Sprite>("pixel_art_tile_sprites/" + attributes.asset);
-        }
+        tileRenderer.sprite = TileSetLoader.GetTileAssetForModel(model);
     }
 }

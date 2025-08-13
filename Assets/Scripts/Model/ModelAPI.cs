@@ -32,42 +32,11 @@ public class ModelAPI : MonoBehaviour
         }
     }
 
-    #region Load Tile Models
+    #region Set up
     void LoadStartingDeck()
     {
-        List<TileModel> startingTiles = new();
-        TileAttributes[] attrs = LoadAttributeListFromResources();
-
-        int tileIndex = 1;
-
-        foreach (TileAttributes attributes in attrs)
-        {
-            for (int i = 0; i < attributes.count; i++)
-            {
-                TileModel tileModel = GetTileModelFromAttribute(tileIndex, attributes);
-                startingTiles.Add(tileModel);
-                tileIndex++;
-            }
-        }
-
+        List<TileModel> startingTiles = TileSetLoader.LoadAllTileModels();
         gameModel.LoadTiles(startingTiles);
-    }
-
-    TileAttributes[] LoadAttributeListFromResources()
-    {
-        TileAttributes[] tileAttributes = Resources.LoadAll<TileAttributes>("TileAttributes");
-        return tileAttributes;
-    }
-
-    TileModel GetTileModelFromAttribute(int index, TileAttributes attributes)
-    {
-        TileModel tileModel = new();
-        tileModel.index = index;
-        tileModel.type = attributes.type;
-        tileModel.number = attributes.number;
-        tileModel.order = attributes.order;
-
-        return tileModel;
     }
     #endregion
 
@@ -105,7 +74,7 @@ public class ModelAPI : MonoBehaviour
     #region Player specific output
     public void NotifyDeal(PlayerModel player)
     {
-        //TODO
+        //TODO Implement
     }
     #endregion
 }

@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stores information for a type of tile face as a ScriptableObject
+/// </summary>
 public class TileAttributes : ScriptableObject
 {
     public string type;

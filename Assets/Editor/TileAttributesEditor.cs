@@ -1,9 +1,9 @@
-using UnityEngine;
-using UnityEditor;
-using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 /// <summary>
 /// Create tile attributes assets through Unity Editor individually or in bulk from a JSON file
@@ -11,7 +11,6 @@ using System.Drawing.Printing;
 public class TileAttributesEditor : EditorWindow
 {
     [MenuItem("Assets/Create/Tile Attribute")]
-
     /// <summary>
     /// Create tile attributes asset in the project view from the "Create" menu
     /// </summary>
@@ -65,7 +64,9 @@ public class TileAttributesEditor : EditorWindow
             if (path.Length != 0)
             {
                 var jsonString = File.ReadAllText(path);
-                TileAttributesListJSON attrFile = JsonUtility.FromJson<TileAttributesListJSON>(jsonString);
+                TileAttributesListJSON attrFile = JsonUtility.FromJson<TileAttributesListJSON>(
+                    jsonString
+                );
 
                 Debug.Log("Creating attribute assets...");
                 SaveTileAttributes(attrFile.attributes);
@@ -84,12 +85,14 @@ public class TileAttributesEditor : EditorWindow
             attributes.order = attributesJSON.order;
             attributes.asset = attributesJSON.asset;
 
-            string filePath = "Assets/Resources/TileAttributes/Tile" + attributes.type + attributes.number + ".asset";
+            string filePath = GetAttributePathFromNotation(attributes.GetNotation());
             Debug.Log(filePath);
             SaveTileAttributes(attributes, filePath);
         }
     }
 
+    public static string GetAttributePathFromNotation(string notation)
+    {
+        return "Assets/Resources/TileAttributes/Tile" + notation + ".asset";
+    }
 }
-
-

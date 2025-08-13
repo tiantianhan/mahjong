@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HandModel = Model.Hand;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         OnPlayerJoined(this);
+    }
+
+    public void SetInitialHand(HandModel handModel, Deck deck)
+    {
+        hand.SetInitialHand(handModel, deck);
     }
 
     public Tile Draw(Deck deck)

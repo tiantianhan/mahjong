@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3fae4497a8fd664d8e60f5b04bd10c0, type: 3}
-  m_Name: TileE0
+  m_Name: TileS
   m_EditorClassIdentifier: 
-  type: E
+  type: S
   number: 0
   count: 4
-  asset: East
-  order: 1
+  asset: South
+  order: 3
