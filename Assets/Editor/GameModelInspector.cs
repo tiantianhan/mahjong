@@ -23,6 +23,7 @@ public class GameModelInspector : Editor
 
         GameModel.Save gameSave = modelAPI.gameModel.GetSave();
         EditorGUILayout.LabelField("Draw Pile");
+        EditorGUILayout.LabelField("Count: " + gameSave.drawPile.Count);
         foreach (TileModel tile in gameSave.drawPile)
         {
             EditorGUILayout.LabelField(tile.GetNotation());

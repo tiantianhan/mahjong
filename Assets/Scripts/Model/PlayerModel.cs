@@ -11,6 +11,7 @@ namespace Model
         {
             this.playerID = playerID;
             this.playerName = playerName;
+            this.hand = new();
         }
 
         public void Draw(Deck deck)

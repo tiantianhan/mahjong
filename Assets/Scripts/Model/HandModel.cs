@@ -4,7 +4,7 @@ namespace Model
 {
     public class Hand
     {
-        public List<Tile> tiles;
+        public List<Tile> tiles = new();
 
         public void Add(Tile tile)
         {

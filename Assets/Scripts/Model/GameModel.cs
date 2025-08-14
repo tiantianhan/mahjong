@@ -87,7 +87,7 @@ namespace Model
 
         public List<Player> GetPlayers()
         {
-            return players;
+            return new List<Player>(players);
         }
     }
 }

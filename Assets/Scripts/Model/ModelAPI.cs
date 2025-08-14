@@ -4,6 +4,14 @@ using GameModel = Model.Game;
 using PlayerModel = Model.Player;
 using TileModel = Model.Tile;
 
+/// <summary>
+/// Contains the game model, functions to update model and
+/// functions to update listeners of updates to the model
+///
+///                                      |ModelAPI
+/// Players (Listeners) <--- network --> |  |Game Model
+///
+/// </summary>
 public class ModelAPI : MonoBehaviour
 {
     [SerializeField]
@@ -20,6 +28,7 @@ public class ModelAPI : MonoBehaviour
     [SerializeField]
     public GameModel gameModel;
 
+    #region Set up
     void Awake()
     {
         gameModel = new GameModel(numPlayers, numTilesPerHand);
@@ -32,7 +41,6 @@ public class ModelAPI : MonoBehaviour
         }
     }
 
-    #region Set up
     void LoadStartingDeck()
     {
         List<TileModel> startingTiles = TileSetLoader.LoadAllTileModels();
@@ -63,18 +71,43 @@ public class ModelAPI : MonoBehaviour
     public void Deal()
     {
         gameModel.Deal();
-        foreach (PlayerModel playerModel in gameModel.GetPlayers())
+        foreach (PlayerModel player in gameModel.GetPlayers())
         {
-            NotifyDeal(playerModel);
+            Player playerView = GetViewForPlayer(player);
+            int[] handIndices = GetHandIndicesForPlayer(player);
+            NotifyDeal(playerView, handIndices);
         }
     }
 
     #endregion
 
     #region Player specific output
-    public void NotifyDeal(PlayerModel player)
+    //TODO Make this call over the network instead
+    public void NotifyDeal(Player playerView, int[] handIndices)
     {
-        //TODO Implement
+        Debug.Log(
+            "Player View "
+                + playerView.gameObject.name
+                + " Dealt indices "
+                + string.Join(", ", handIndices)
+        );
+    }
+
+    Player GetViewForPlayer(PlayerModel player)
+    {
+        return idToPlayer[player.playerID];
+    }
+
+    int[] GetHandIndicesForPlayer(PlayerModel player)
+    {
+        List<TileModel> tileModels = player.hand.tiles;
+        int[] handIndices = new int[tileModels.Count];
+        for (int i = 0; i < handIndices.Length; i++)
+        {
+            handIndices[i] = tileModels[i].index;
+        }
+
+        return handIndices;
     }
     #endregion
 }
