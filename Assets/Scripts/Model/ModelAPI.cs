@@ -28,6 +28,9 @@ public class ModelAPI : MonoBehaviour
     [SerializeField]
     public GameModel gameModel;
 
+    [SerializeField]
+    private TileSetLookup tileSetLookup;
+
     #region Set up
     void Awake()
     {
@@ -91,6 +94,9 @@ public class ModelAPI : MonoBehaviour
                 + " Dealt indices "
                 + string.Join(", ", handIndices)
         );
+
+        List<Tile> handTiles = tileSetLookup.GetTileListForIndices(handIndices);
+        playerView.SetInitialHand(handTiles);
     }
 
     Player GetViewForPlayer(PlayerModel player)

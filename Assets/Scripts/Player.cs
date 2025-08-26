@@ -16,9 +16,11 @@ public class Player : MonoBehaviour
         OnPlayerJoined(this);
     }
 
-    public void SetInitialHand(HandModel handModel, Deck deck)
+    public void SetInitialHand(List<Tile> handTiles)
     {
-        hand.SetInitialHand(handModel, deck);
+        hand.SetInitialHand(handTiles);
+        hand.Order();
+        hand.Layout();
     }
 
     public Tile Draw(Deck deck)
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //TODO: Deck locally should no longer track exact tiles, only number of tiles
     public void ReturnHandToDeck(Deck deck)
     {
         hand.ReturnToDeck(deck);

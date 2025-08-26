@@ -8,6 +8,7 @@ using TileModel = Model.Tile;
 
 /**
 * Deck of tiles not yet distributed to players
+* TODO: No longer track list of tiles, instead track number of tiles in the deck
 */
 public class Deck : NetworkBehaviour
 {

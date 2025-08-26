@@ -16,10 +16,10 @@ public class Hand : MonoBehaviour, Tile.ITileClickedHandler
     [SerializeField]
     private UnityEvent<bool, Tile> OnSelectedTileUpdated;
 
-    public void SetInitialHand(HandModel handModel, Deck deck)
+    public void SetInitialHand(List<Tile> handTiles)
     {
-        // TODO check tile index with tile deck to access hand
-        // tiles = handModel.tiles;
+        tiles.Clear();
+        tiles.AddRange(handTiles);
     }
 
     public void Add(Tile tile)

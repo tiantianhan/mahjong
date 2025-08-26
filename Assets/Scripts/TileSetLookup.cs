@@ -38,6 +38,19 @@ public class TileSetLookup : MonoBehaviour
     }
 
     /// <summary>
+    /// Get list of tiles given an array of tile indices. Index range from 1 - total number of tiles
+    /// </summary>
+    public List<Tile> GetTileListForIndices(int[] indices)
+    {
+        List<Tile> tileList = new();
+        foreach (int i in indices)
+        {
+            tileList.Add(allTiles[i - 1]);
+        }
+        return tileList;
+    }
+
+    /// <summary>
     /// Return shallow copy of references to all the tiles
     /// </summary>
     public List<Tile> GetAllTiles()
