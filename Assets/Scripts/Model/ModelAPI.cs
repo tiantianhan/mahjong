@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using FishNet.Connection;
+using FishNet.Managing;
+using FishNet.Managing.Server;
+using FishNet.Object;
 using UnityEngine;
 using GameModel = Model.Game;
 using PlayerModel = Model.Player;
@@ -12,7 +16,7 @@ using TileModel = Model.Tile;
 /// Players (Listeners) <--- network --> |  |Game Model
 ///
 /// </summary>
-public class ModelAPI : MonoBehaviour
+public class ModelAPI : NetworkBehaviour
 {
     [SerializeField]
     private int numPlayers = 4;
@@ -23,7 +27,7 @@ public class ModelAPI : MonoBehaviour
     [SerializeField]
     private Player[] players;
 
-    private Dictionary<string, Player> idToPlayer = new();
+    private Dictionary<string, NetworkConnection> playerIDToNetworkConnection = new();
 
     [SerializeField]
     public GameModel gameModel;
@@ -31,77 +35,115 @@ public class ModelAPI : MonoBehaviour
     [SerializeField]
     private TileSetLookup tileSetLookup;
 
+    [SerializeField]
+    private NetworkManager networkManager;
+
     #region Set up
     void Awake()
     {
-        gameModel = new GameModel(numPlayers, numTilesPerHand);
-        LoadStartingDeck();
-
-        //TODO: Dynamically add players as they are spawned
-        foreach (Player player in players)
-        {
-            RegisterPlayer(player.name, player);
-        }
+        //DEBUG: Add dummy players without networking for debugging
+        // foreach (Player player in players)
+        // {
+        //     RegisterPlayer(player.name, player);
+        // }
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        ServerSetup();
+    }
+
+    [Server]
+    void ServerSetup()
+    {
+        Debug.Log("Server Setup");
+        gameModel = new GameModel(numPlayers, numTilesPerHand);
+        LoadStartingDeck();
+        ServerManager serverManager = networkManager.GetComponent<ServerManager>();
+        serverManager.OnAuthenticationResult += OnAuthenticationResultHandler;
+    }
+
+    [Server]
     void LoadStartingDeck()
     {
+        Debug.Log("LoadStartingDeck");
         List<TileModel> startingTiles = TileSetLoader.LoadAllTileModels();
         gameModel.LoadTiles(startingTiles);
     }
+
+    [Server]
+    public void OnAuthenticationResultHandler(
+        NetworkConnection networkConnection,
+        bool authenticated
+    )
+    {
+        Debug.Log("OnAuthenticationResultHandler");
+        if (authenticated)
+        {
+            RegisterConnection("Player " + gameModel.GetNextPlayerID(), networkConnection);
+        }
+    }
+
     #endregion
 
     #region Any player input
-    public void RegisterPlayer(string playerName, Player player)
+    [Server]
+    public void RegisterConnection(string playerName, NetworkConnection networkConnection)
     {
         if (gameModel.isGameFull())
         {
+            // TODO: Notify players attempting to join when game is full
+            // Also handle cases when player connection drops and reconnects
             Debug.LogWarning("Tried to add player while game is full");
         }
         else
         {
             PlayerModel playerModel = new(gameModel.GetNextPlayerID(), playerName);
             gameModel.AddPlayer(playerModel);
-            idToPlayer.Add(playerModel.playerID, player);
+            playerIDToNetworkConnection.Add(playerModel.playerID, networkConnection);
+            Debug.Log("Registered " + playerName + " client ID " + networkConnection.ClientId);
         }
     }
 
+    [Server]
     public void Shuffle()
     {
         gameModel.Shuffle();
     }
 
+    [Server]
     public void Deal()
     {
         gameModel.Deal();
         foreach (PlayerModel player in gameModel.GetPlayers())
         {
-            Player playerView = GetViewForPlayer(player);
+            NetworkConnection connection = GetConnectionForPlayer(player);
             int[] handIndices = GetHandIndicesForPlayer(player);
-            NotifyDeal(playerView, handIndices);
+            NotifyDeal(connection, handIndices);
         }
     }
 
     #endregion
 
     #region Player specific output
-    //TODO Make this call over the network instead
-    public void NotifyDeal(Player playerView, int[] handIndices)
+    public void NotifyDeal(NetworkConnection connection, int[] handIndices)
     {
         Debug.Log(
-            "Player View "
-                + playerView.gameObject.name
+            "Sending to connection "
+                + connection.ClientId
                 + " Dealt indices "
                 + string.Join(", ", handIndices)
         );
 
-        List<Tile> handTiles = tileSetLookup.GetTileListForIndices(handIndices);
-        playerView.SetInitialHand(handTiles);
+        //TODO NEXT: Make this call over the network
+        // List<Tile> handTiles = tileSetLookup.GetTileListForIndices(handIndices);
+        // playerView.SetInitialHand(handTiles);
     }
 
-    Player GetViewForPlayer(PlayerModel player)
+    NetworkConnection GetConnectionForPlayer(PlayerModel player)
     {
-        return idToPlayer[player.playerID];
+        return playerIDToNetworkConnection[player.playerID];
     }
 
     int[] GetHandIndicesForPlayer(PlayerModel player)
