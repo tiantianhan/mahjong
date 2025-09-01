@@ -127,6 +127,7 @@ public class ModelAPI : NetworkBehaviour
     #endregion
 
     #region Player specific output
+    [TargetRpc]
     public void NotifyDeal(NetworkConnection connection, int[] handIndices)
     {
         Debug.Log(
