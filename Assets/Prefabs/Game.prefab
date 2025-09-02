@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 1945652598526177833}
   - component: {fileID: 6810760484615615586}
   - component: {fileID: 9123085205846226664}
+  - component: {fileID: 5729707560755786202}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -92,9 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1550e8e82ef1a7946a4b96368d0f4208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 9123085205846226664}
-  _networkObjectCache: {fileID: 0}
   currentPlayer: {fileID: 0}
   playersInOrder: []
   deck: {fileID: 3691308936348409817}
@@ -118,7 +116,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 5729707560755786202}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -143,15 +142,30 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 5245178571412951255
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
+--- !u!114 &5729707560755786202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7358315441882033050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 9123085205846226664}
+  _networkObjectCache: {fileID: 9123085205846226664}
 --- !u!1 &7862759997902598058
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,3 +212,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 5686983188484236610, guid: 44d9886685d320948b46bf3c955b8a26, type: 3}
   tiles: []
+  tileDeckLookup: {fileID: 0}

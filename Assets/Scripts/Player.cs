@@ -8,14 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Hand hand;
 
-    public delegate void PlayerJoined(Player player);
-    public static event PlayerJoined OnPlayerJoined;
-
-    void Start()
-    {
-        OnPlayerJoined(this);
-    }
-
     public void SetInitialHand(List<Tile> handTiles)
     {
         hand.SetInitialHand(handTiles);

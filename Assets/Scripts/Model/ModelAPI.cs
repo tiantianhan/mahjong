@@ -12,8 +12,7 @@ using TileModel = Model.Tile;
 /// Contains the game model, functions to update model and
 /// functions to update listeners of updates to the model
 ///
-///                                      |ModelAPI
-/// Players (Listeners) <--- network --> |  |Game Model
+/// Game View (Client) <----> ModelAPI (Server/Client)  <---> Game Model (Server)
 ///
 /// </summary>
 public class ModelAPI : NetworkBehaviour
@@ -25,7 +24,7 @@ public class ModelAPI : NetworkBehaviour
     private int numTilesPerHand = 13;
 
     [SerializeField]
-    private Player[] players;
+    private Game gameView;
 
     private Dictionary<string, NetworkConnection> playerIDToNetworkConnection = new();
 
@@ -34,9 +33,6 @@ public class ModelAPI : NetworkBehaviour
 
     [SerializeField]
     private TileSetLookup tileSetLookup;
-
-    [SerializeField]
-    private NetworkManager networkManager;
 
     #region Set up
     void Awake()
@@ -60,8 +56,7 @@ public class ModelAPI : NetworkBehaviour
         Debug.Log("Server Setup");
         gameModel = new GameModel(numPlayers, numTilesPerHand);
         LoadStartingDeck();
-        ServerManager serverManager = networkManager.GetComponent<ServerManager>();
-        serverManager.OnAuthenticationResult += OnAuthenticationResultHandler;
+        ServerManager.OnAuthenticationResult += OnAuthenticationResultHandler;
     }
 
     [Server]
@@ -137,9 +132,10 @@ public class ModelAPI : NetworkBehaviour
                 + string.Join(", ", handIndices)
         );
 
-        //TODO NEXT: Make this call over the network
-        // List<Tile> handTiles = tileSetLookup.GetTileListForIndices(handIndices);
+        //TODO NEXT: Update tile views on client
+        List<Tile> handTiles = tileSetLookup.GetTileListForIndices(handIndices);
         // playerView.SetInitialHand(handTiles);
+        gameView.DealHand(handTiles);
     }
 
     NetworkConnection GetConnectionForPlayer(PlayerModel player)

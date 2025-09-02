@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using HandModel = Model.Hand;
 
 public class Hand : MonoBehaviour, Tile.ITileClickedHandler
 {
     [SerializeField]
     private List<Tile> tiles;
+
+    [SerializeField]
+    private float tileSpacing = 7 / 13f; // Board size / Number of tiles
 
     private Tile selectedTile;
 
@@ -45,8 +47,7 @@ public class Hand : MonoBehaviour, Tile.ITileClickedHandler
         {
             tiles[i].gameObject.transform.parent = this.transform;
             tiles[i].gameObject.transform.localRotation = Quaternion.identity;
-            // TODO: Decouple layout implementation from model of game and game state
-            tiles[i].gameObject.transform.localPosition = Vector3.right * i * 7 / 13f; // Board size / Number of tiles
+            tiles[i].gameObject.transform.localPosition = Vector3.right * i * tileSpacing;
             tiles[i].TileSelectedHandler = this;
         }
     }
